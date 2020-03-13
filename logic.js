@@ -17,6 +17,9 @@ let schoolsOut = function (days, hours, min, next) {
     setTarget(nextMonday);
 };
 
+let bellSound = new Audio("bell.wav");
+// bellSound.play();
+
 let setTarget = function (date) {
     now = new Date();
     let diffMs = (date - now);
@@ -24,11 +27,25 @@ let setTarget = function (date) {
     let diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
     let diffMins = Math.floor(((diffMs % 86400000) % 3600000) / 60000); // minutes
     let diffSecs = Math.floor((((diffMs % 86400000) % 3600000) % 60000) / 1000); // Seconds
-    timeDisp.textContent = "" + diffMins + ":" + diffSecs;
+
+    if (diffSecs >= 10) {
+        timeDisp.textContent = "" + diffMins + ":" + diffSecs;
+    } else {
+        timeDisp.textContent = "" + diffMins + ":0" + diffSecs;
+    }
+
     if (diffDays > 0) {
-        timeDisp.textContent = "" + diffDays + " days " + diffHrs + ":" + diffMins + ":" + diffSecs;
+        if (diffSecs >= 10) {
+            timeDisp.textContent = "" + diffDays + " days " + diffHrs + ":" + diffMins + ":" + diffSecs;
+        } else {
+            timeDisp.textContent = "" + diffDays + " days " + diffHrs + ":" + diffMins + ":0" + diffSecs;
+        }
     } else if (diffHrs > 0) {
-        timeDisp.textContent = "" + diffHrs + ":" + diffMins + ":" + diffSecs;
+        if (diffSecs >= 10) {
+            timeDisp.textContent = "" + diffHrs + ":" + diffMins + ":" + diffSecs;
+        } else {
+            timeDisp.textContent = "" + diffHrs + ":" + diffMins + ":0" + diffSecs;
+        }
     }
 };
 
@@ -132,9 +149,6 @@ switch (now.getDay()) {
         now.setHours(15);
         now.setMinutes(35);
         schedule.push([new Date(now.getTime()), offDuty]);
-
-        console.log(schedule);
-        alert(schedule);
         break;
     }
     case (6): { // Saturday
@@ -142,6 +156,8 @@ switch (now.getDay()) {
         break;
     }
 }
+
+let prevTarget;
 
 let updateSchedule = function () {
     now = new Date();
@@ -157,13 +173,20 @@ let updateSchedule = function () {
             isDone = true;
             nextDisp.textContent = element[1];
             setTarget(element[0]);
-            console.log("Found match " + element[0]);
+
+            if (prevTarget !== element[0]) {
+                bellSound.play();
+            }
+
+            prevTarget = element[0];
+            return;
         }
+
         i++;
     });
 
-    if (i > 1) {
-        periodDisp.textContent = schedule[i - 2][1];
+    if (i > 0 && !(i === schedule.length)) {
+        periodDisp.textContent = schedule[i - 1][1];
     } else {
         periodDisp = offDuty;
     }
