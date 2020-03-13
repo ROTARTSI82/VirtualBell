@@ -22,7 +22,7 @@ let setTarget = function (date) {
     let diffMs = (date - now);
     let diffDays = Math.floor(diffMs / 86400000); // days
     let diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
-    let diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+    let diffMins = Math.floor(((diffMs % 86400000) % 3600000) / 60000); // minutes
     let diffSecs = Math.floor((((diffMs % 86400000) % 3600000) % 60000) / 1000); // Seconds
     timeDisp.textContent = "" + diffMins + ":" + diffSecs;
     if (diffDays > 0) {
