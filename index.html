@@ -34,17 +34,46 @@
 <body>
 <div class="pad center">
     <div class="pad center dark-theme">
-        <h1>Harker Middle School Virtual Bell</h1>
+        <h3 id="noscript" style="color: red">ERROR: If you are seeing this, then you probably have JavaScript disabled.
+            You MUST enable
+            JavaScript for this website to work. Check that your adblocker isn't assaulting this website (we don't
+            have any ads anyways, so it's safe to disable it.)</h3>
+        <h1>Harker Middle School Virtual Bell <span class="badge badge-secondary">v2.0</span></h1>
         <h4>By Grant Yang <a href="mailto:25granty@students.harker.org"><25granty@students.harker.org></a></h4>
         <h5 style="color: yellow">Turn on sound and allow autoplay to hear the bells!</h5>
 
         <hr>
         <h3><span class="disp" id="datetime-disp">ERROR</span></h3>
-        <hr>
 
-        <h1><span class="disp" id="time-disp">ERROR</span> left in <span class="disp" id="period-disp">ERROR</span>
-        </h1>
-        <h1>Up next: <span class="disp" id="next-disp">ERROR</span></h1>
+        <hr>
+        <h1><span class="disp" id="period-disp">ERROR</span></h1>
+        <h1><span class="disp" id="time-disp">ERROR</span> until <span class="disp" id="next-disp">ERROR</span></h1>
+
+        <hr>
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th scope="col">Event</th>
+                <th scope="col">Start</th>
+                <th scope="col">End</th>
+                <th scope="col">Duration</th>
+            </tr>
+            </thead>
+            <tbody id="sched-body">
+            <tr style="background: darkgreen">
+                <th scope="row">ERROR</th>
+                <td>ERROR</td>
+                <td>ERROR</td>
+                <td>ERROR</td>
+            </tr>
+            <tr>
+                <th scope="row">ERROR</th>
+                <td>ERROR</td>
+                <td>ERROR</td>
+                <td>ERROR</td>
+            </tr>
+            </tbody>
+        </table>
 
         <hr>
         <div class="row">
@@ -55,13 +84,18 @@
                 <h5><a href="https://www.github.com/ROTARTSI82/VirtualBell">See the code on GitHub</a></h5>
             </div>
             <div class="col-sm">
+                <h5><a href="why-us.html">Why Us?</a></h5>
+            </div>
+            <div class="col-sm">
                 <h5><a href="https://www.github.com/ROTARTSI82/VirtualBell/issues">Report an Issue</a></h5>
             </div>
         </div>
     </div>
 </div>
 
-<script src="logic.js"></script>
+
+<script src="schedules.js"></script>
+<script src="index-logic.js"></script>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
