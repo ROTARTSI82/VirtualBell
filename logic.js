@@ -1,6 +1,7 @@
 let periodDisp = document.getElementById("period-disp");
 let timeDisp = document.getElementById("time-disp");
 let nextDisp = document.getElementById("next-disp");
+let datetimeDisp = document.getElementById("datetime-disp");
 
 let offDuty = "Free Time";
 
@@ -476,6 +477,7 @@ let updateInterval;
 
 let intervalHandler = function () {
     now = new Date();
+    datetimeDisp.textContent = now;
 
     if (currentDay !== now.getDate()) {
         schedule = [];
