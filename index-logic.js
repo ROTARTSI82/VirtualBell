@@ -87,6 +87,9 @@ let getTimeStr = function (ms) {
     ret = "" + mins + ":" + secs;
     if (days > 0) {
         ret = "" + days + " days " + hrs + ":" + mins + ":" + secs;
+        if (days === 1) {
+            ret = "1 day " + hrs + ":" + mins + ":" + secs;
+        }
     } else if (hrs > 0) {
         ret = "" + hrs + ":" + mins + ":" + secs;
     }
