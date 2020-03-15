@@ -97,20 +97,6 @@ let getTimeStr = function (ms) {
     return ret;
 };
 
-let getTimeStrFromDate = function (argDate) {
-    let hours = argDate.getHours();
-    let mins = argDate.getMinutes();
-
-    if (hours < 10) {
-        hours = "0" + hours;
-    }
-    if (mins < 10) {
-        mins = "0" + mins;
-    }
-
-    return "" + hours + ":" + mins;
-};
-
 let updateTable = function () {
     now = new Date();
     let i = 0;
@@ -125,8 +111,8 @@ let updateTable = function () {
             if (i > 0) {
                 table.innerHTML += "<tr style=\"background: darkgreen\">\n" +
                     "                    <th scope=\"row\">" + schedule[i - 1][1] + "</th>\n" +
-                    "                    <td>" + getTimeStrFromDate(schedule[i - 1][0]) + "</td>\n" +
-                    "                    <td>" + getTimeStrFromDate(element[0]) + "</td>\n" +
+                    "                    <td>" + (schedule[i - 1][0]).toLocaleTimeString() + "</td>\n" +
+                    "                    <td>" + (element[0]).toLocaleTimeString() + "</td>\n" +
                     "                    <td>" + getTimeStr(element[0] - schedule[i - 1][0]) + "</td>\n" +
                     "                </tr>\n";
             } else {
@@ -134,7 +120,7 @@ let updateTable = function () {
                 table.innerHTML += "<tr style=\"background: darkgreen\">\n" +
                     "                    <th scope=\"row\">" + offDuty + "</th>\n" +
                     "                    <td>N/A</td>\n" +
-                    "                    <td>" + getTimeStrFromDate(element[0]) + "</td>\n" +
+                    "                    <td>" + (element[0]).toLocaleTimeString() + "</td>\n" +
                     "                    <td>N/A</td>\n" +
                     "                </tr>\n";
             }
@@ -144,8 +130,8 @@ let updateTable = function () {
                 console.log("adding elem not active");
                 table.innerHTML += "<tr>\n" +
                     "                    <th scope=\"row\">" + schedule[i - 1][1] + "</th>\n" +
-                    "                    <td>" + getTimeStrFromDate(schedule[i - 1][0]) + "</td>\n" +
-                    "                    <td>" + getTimeStrFromDate(element[0]) + "</td>\n" +
+                    "                    <td>" + (schedule[i - 1][0]).toLocaleTimeString() + "</td>\n" +
+                    "                    <td>" + (element[0]).toLocaleTimeString() + "</td>\n" +
                     "                    <td>" + getTimeStr(element[0] - schedule[i - 1][0]) + "</td>\n" +
                     "                </tr>\n";
             } else {
@@ -153,7 +139,7 @@ let updateTable = function () {
                 table.innerHTML += "<tr>\n" +
                     "                    <th scope=\"row\">" + offDuty + "</th>\n" +
                     "                    <td>N/A</td>\n" +
-                    "                    <td>" + getTimeStrFromDate(element[0]) + "</td>\n" +
+                    "                    <td>" + (element[0]).toLocaleTimeString() + "</td>\n" +
                     "                    <td>N/A</td>\n" +
                     "                </tr>\n";
             }
@@ -178,7 +164,7 @@ let updateInterval;
 
 let intervalHandler = function () {
     now = new Date();
-    datetimeDisp.textContent = now;
+    datetimeDisp.textContent = now.toLocaleString();
 
     if (currentDay !== now.getDate()) {
         schedule = [];
