@@ -21,7 +21,7 @@ let schoolsOut = function (days, hours, min, next) {
     setTarget(nextMonday);
 };
 
-let bellSound = new Audio("bell2.wav");
+let bellSound = new Audio("ThemeSong.mp3");
 // bellSound.play();
 
 let setTarget = function (date) {
