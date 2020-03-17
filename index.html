@@ -38,9 +38,24 @@
             You MUST enable
             JavaScript for this website to work. Check that your adblocker isn't assaulting this website (we don't
             have any ads anyways, so it's safe to disable it.)</h3>
-        <h1>Harker Middle School Virtual Bell <span class="badge badge-secondary">v2.0.3</span></h1>
+        <h1>Harker Middle School Virtual Bell <span class="badge badge-secondary">v2.0.4</span></h1>
         <h4>By Grant Yang <a href="mailto:25granty@students.harker.org"><25granty@students.harker.org></a></h4>
-        <h5 style="color: yellow">Turn on sound and allow autoplay to hear the bells!</h5>
+        <h5 style="color: yellow">Turn on sound and allow autoplay to hear the bells! If you don't want to hear them,
+            right-click on this tab to mute it.</h5>
+
+        <hr>
+
+        <div class="form-group">
+            <h4><label for="sound-select">Bell Sound:</label></h4>
+            <select class="form-control" id="sound-select">
+                <option value="bell2.wav">Xylophone Scale</option>
+                <option value="bell.wav">Classic School Bell</option>
+                <option value="ThemeSong.mp3">Trumpet Theme Song</option>
+            </select>
+        </div>
+
+        <button class="btn btn-primary" id="save-sound" type="button">Save & Play</button>
+
 
         <hr>
         <h3><span class="disp" id="datetime-disp">ERROR</span></h3>

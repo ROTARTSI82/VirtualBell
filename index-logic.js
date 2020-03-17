@@ -3,6 +3,7 @@ let timeDisp = document.getElementById("time-disp");
 let nextDisp = document.getElementById("next-disp");
 let datetimeDisp = document.getElementById("datetime-disp");
 let table = document.getElementById("sched-body");
+let sound = document.getElementById("sound-select");
 
 document.getElementById("noscript").hidden = true;
 
@@ -21,8 +22,13 @@ let schoolsOut = function (days, hours, min, next) {
     setTarget(nextMonday);
 };
 
-let bellSound = new Audio("ThemeSong.mp3");
+let bellSound = new Audio(sound.options[sound.selectedIndex].value);
 // bellSound.play();
+
+document.getElementById("save-sound").onclick = function () {
+    bellSound = new Audio(sound.options[sound.selectedIndex].value);
+    bellSound.play();
+};
 
 let setTarget = function (date) {
     now = new Date();
