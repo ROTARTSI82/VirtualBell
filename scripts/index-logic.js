@@ -3,7 +3,6 @@ let timeDisp = document.getElementById("time-disp");
 let nextDisp = document.getElementById("next-disp");
 let datetimeDisp = document.getElementById("datetime-disp");
 let table = document.getElementById("sched-body");
-let sound = document.getElementById("sound-select");
 
 document.getElementById("noscript").hidden = true;
 
@@ -22,13 +21,14 @@ let schoolsOut = function (days, hours, min, next) {
     setTarget(nextMonday);
 };
 
-let bellSound = new Audio(sound.options[sound.selectedIndex].value);
-// bellSound.play();
-
-document.getElementById("save-sound").onclick = function () {
-    bellSound = new Audio(sound.options[sound.selectedIndex].value);
-    bellSound.play();
-};
+let bellSound;
+if (localStorage.getItem("bellSound") !== null) {
+    bellSound = new Audio(localStorage.getItem("bellSound"));
+} else {  // Set default bell sound
+    bellSound = new Audio("bellSounds/bell2.wav");
+    localStorage.setItem("bellSound", "bellSounds/bell2.wav");
+}
+bellSound.play();
 
 let setTarget = function (date) {
     now = new Date();
@@ -68,7 +68,34 @@ let updateSchedule = function () {
         }
     });
     if (i > 0 && !(i === schedule.length)) {
-        periodDisp.textContent = schedule[i - 1][1];
+        let eventName = schedule[i - 1][1];
+        if (localStorage.getItem(eventName + "-name") !== null) {
+            eventName = localStorage.getItem(eventName + "-name");
+        }
+
+        periodDisp.textContent = eventName;
+    }
+};
+
+let getLinkHTML = function (periodName) {
+    let linkPack = localStorage.getItem(periodName + "-link");
+    if (linkPack !== null) {
+        let linkList = linkPack.split(" ");
+        let finalHTML = "";
+
+        linkList.forEach(function (element) {
+            finalHTML += "<a href=\"" + element + "\">" + element + "</a>, ";
+        });
+
+        return finalHTML;
+    } else {
+        if (periodName === "Assembly") {
+            return "<a href=\"https://harker.zoom.us/j/824361007\">https://harker.zoom.us/j/824361007</a>";
+        }
+        if (periodName === "Meeting") {
+            return "No Links yet. Check Schoology & Your email.";
+        }
+        return "No Links";
     }
 };
 
@@ -110,40 +137,49 @@ let updateTable = function () {
 
     table.innerHTML = "";
 
-    console.log(schedule);
     schedule.forEach(function (element) {
         if (now < element[0] && !found) {
             found = true;
             if (i > 0) {
+                let eventName = schedule[i - 1][1];
+                if (localStorage.getItem(eventName + "-name") !== null) {
+                    eventName = localStorage.getItem(eventName + "-name");
+                }
+
                 table.innerHTML += "<tr style=\"background: darkgreen\">\n" +
-                    "                    <th scope=\"row\">" + schedule[i - 1][1] + "</th>\n" +
+                    "                    <th scope=\"row\">" + eventName + "</th>\n" +
+                    "                    <td>" + getLinkHTML(schedule[i - 1][1]) + "</td>\n" +
                     "                    <td>" + (schedule[i - 1][0]).toLocaleTimeString() + "</td>\n" +
                     "                    <td>" + (element[0]).toLocaleTimeString() + "</td>\n" +
                     "                    <td>" + getTimeStr(element[0] - schedule[i - 1][0]) + "</td>\n" +
                     "                </tr>\n";
             } else {
-                console.log("adding first elem active");
                 table.innerHTML += "<tr style=\"background: darkgreen\">\n" +
                     "                    <th scope=\"row\">" + offDuty + "</th>\n" +
+                    "                    <td>No Links</td>\n" +
                     "                    <td>N/A</td>\n" +
                     "                    <td>" + (element[0]).toLocaleTimeString() + "</td>\n" +
                     "                    <td>N/A</td>\n" +
                     "                </tr>\n";
             }
         } else {
-            console.log("now is after elem or found");
             if (i > 0) {
-                console.log("adding elem not active");
+                let eventName = schedule[i - 1][1];
+                if (localStorage.getItem(eventName + "-name") !== null) {
+                    eventName = localStorage.getItem(eventName + "-name");
+                }
+
                 table.innerHTML += "<tr>\n" +
-                    "                    <th scope=\"row\">" + schedule[i - 1][1] + "</th>\n" +
+                    "                    <th scope=\"row\">" + eventName + "</th>\n" +
+                    "                    <td>" + getLinkHTML(schedule[i - 1][1]) + "</td>\n" +
                     "                    <td>" + (schedule[i - 1][0]).toLocaleTimeString() + "</td>\n" +
                     "                    <td>" + (element[0]).toLocaleTimeString() + "</td>\n" +
                     "                    <td>" + getTimeStr(element[0] - schedule[i - 1][0]) + "</td>\n" +
                     "                </tr>\n";
             } else {
-                console.log("adding first elem not active");
                 table.innerHTML += "<tr>\n" +
                     "                    <th scope=\"row\">" + offDuty + "</th>\n" +
+                    "                    <td>No Links</td>\n" +
                     "                    <td>N/A</td>\n" +
                     "                    <td>" + (element[0]).toLocaleTimeString() + "</td>\n" +
                     "                    <td>N/A</td>\n" +
@@ -157,8 +193,9 @@ let updateTable = function () {
         table.innerHTML += "<tr>\n" +
             "                    <th scope=\"row\">Nothing to see here!</th>\n" +
             "                    <td>It's the weekend!</td>\n" +
-            "                    <td>Go out and do something special ;)</td>\n" +
             "                    <td>Have fun!</td>\n" +
+            "                    <td>Remember to wash your hands!</td>\n" +
+            "                    <td>Stay healthy!</td>\n" +
             "                </tr>\n";
     }
 };

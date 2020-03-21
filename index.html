@@ -34,28 +34,47 @@
 <body>
 <div class="pad center">
     <div class="pad center dark-theme">
-        <h3 id="noscript" style="color: red">ERROR: If you are seeing this, then you probably have JavaScript disabled.
-            You MUST enable
-            JavaScript for this website to work. Check that your adblocker isn't assaulting this website (we don't
-            have any ads anyways, so it's safe to disable it.)</h3>
-        <h1>Harker Middle School Virtual Bell <span class="badge badge-secondary">v2.0.4</span></h1>
+        <div class="alert alert-danger" id="noscript" role="alert">
+            <h4 class="alert-heading">
+                <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                ERROR: If you are seeing this, then you probably have JavaScript disabled.
+                You MUST enable
+                JavaScript for this website to work. Check that your adblocker isn't assaulting this website (we don't
+                have any ads anyways, so it's safe to disable it.)
+            </h4>
+        </div>
+
+        <div class="alert alert-primary" role="alert">
+            <h4 class="alert-heading">
+                <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                The option to change your bell sound has been moved to <a href="settings.html">settings.</a>
+            </h4>
+        </div>
+
+        <h1>Harker Middle School Virtual Bell <span class="badge badge-secondary">v2.1.0</span></h1>
         <h4>By Grant Yang <a href="mailto:25granty@students.harker.org"><25granty@students.harker.org></a></h4>
         <h5 style="color: yellow">Turn on sound and allow autoplay to hear the bells! If you don't want to hear them,
             right-click on this tab to mute it.</h5>
 
         <hr>
 
-        <div class="form-group">
-            <h4><label for="sound-select">Bell Sound:</label></h4>
-            <select class="form-control" id="sound-select">
-                <option value="bell2.wav">Xylophone Scale</option>
-                <option value="bell.wav">Classic School Bell</option>
-                <option value="ThemeSong.mp3">Trumpet Theme Song</option>
-            </select>
+        <div class="row">
+            <div class="col-sm">
+                <h5><a href="settings.html">Settings</a></h5>
+            </div>
+
+            <div class="col-sm">
+                <h5><a href="under-construction.html">Zoom Links</a></h5>
+            </div>
+
+            <div class="col-sm">
+                <h5><a href="under-construction.html">Flipgrid Links</a></h5>
+            </div>
         </div>
-
-        <button class="btn btn-primary" id="save-sound" type="button">Save & Play</button>
-
 
         <hr>
         <h3><span class="disp" id="datetime-disp">ERROR</span></h3>
@@ -65,10 +84,11 @@
         <h1><span class="disp" id="time-disp">ERROR</span> until <span class="disp" id="next-disp">ERROR</span></h1>
 
         <hr>
-        <table class="table table-dark">
+        <table class="table table-striped table-dark">
             <thead>
             <tr>
                 <th scope="col">Event</th>
+                <th scope="col">Links</th>
                 <th scope="col">Start</th>
                 <th scope="col">End</th>
                 <th scope="col">Duration</th>
@@ -80,9 +100,11 @@
                 <td>ERROR</td>
                 <td>ERROR</td>
                 <td>ERROR</td>
+                <td>ERROR</td>
             </tr>
             <tr>
                 <th scope="row">ERROR</th>
+                <td>ERROR</td>
                 <td>ERROR</td>
                 <td>ERROR</td>
                 <td>ERROR</td>
@@ -109,8 +131,8 @@
 </div>
 
 
-<script src="schedules.js"></script>
-<script src="index-logic.js"></script>
+<script src="scripts/schedules.js"></script>
+<script src="scripts/index-logic.js"></script>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
