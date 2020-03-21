@@ -3,6 +3,7 @@ let timeDisp = document.getElementById("time-disp");
 let nextDisp = document.getElementById("next-disp");
 let datetimeDisp = document.getElementById("datetime-disp");
 let table = document.getElementById("sched-body");
+let linkDisp = document.getElementById("link-disp");
 
 document.getElementById("noscript").hidden = true;
 
@@ -10,6 +11,7 @@ let offDuty = "Free Time";
 
 let schoolsOut = function (days, hours, min, next) {
     periodDisp.textContent = offDuty;
+    linkDisp.textContent = "No Links";
     nextDisp.textContent = next;
 
     let nextMonday = new Date();
@@ -48,6 +50,7 @@ let updateSchedule = function () {
     let i = 0;
 
     periodDisp.textContent = offDuty;
+    linkDisp.textContent = "No Links";
 
     schedule.forEach(function (element) {
         if (isDone) {
@@ -74,6 +77,7 @@ let updateSchedule = function () {
         }
 
         periodDisp.textContent = eventName;
+        linkDisp.innerHTML = getLinkHTML(schedule[i - 1][1]);
     }
 };
 
