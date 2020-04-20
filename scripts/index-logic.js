@@ -30,7 +30,7 @@ if (localStorage.getItem("bellSound") !== null) {
     bellSound = new Audio("bellSounds/bell2.wav");
     localStorage.setItem("bellSound", "bellSounds/bell2.wav");
 }
-bellSound.play();
+// bellSound.play();
 
 let setTarget = function (date) {
     now = new Date();
@@ -88,13 +88,13 @@ let getLinkHTML = function (periodName) {
         let finalHTML = "";
 
         linkList.forEach(function (element) {
-            finalHTML += "<a href=\"" + element + "\">" + element + "</a>, ";
+            finalHTML += "<a target=\"_blank\" href=\"" + element + "\">" + element + "</a>, ";
         });
 
         return finalHTML;
     } else {
         if (periodName === "Assembly") {
-            return "<a href=\"https://harker.zoom.us/j/824361007\">https://harker.zoom.us/j/824361007</a>";
+            return "<a target=\"_blank\" href=\"https://harker.zoom.us/j/824361007\">https://harker.zoom.us/j/824361007</a>";
         }
         if (periodName === "Meeting") {
             return "No Links yet. Check Schoology & Your email.";
