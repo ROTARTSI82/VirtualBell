@@ -2,6 +2,10 @@ let setTuesThursSchedule = function () {
     now.setSeconds(0);
 
     now.setHours(8);
+    now.setMinutes(0);
+    schedule.push([new Date(now.getTime()), "Passing Period (???->1)"]);
+
+    now.setHours(8);
     now.setMinutes(5);
     schedule.push([new Date(now.getTime()), "Period 1"]);
 
@@ -94,6 +98,10 @@ let loadSchedule = function () {
         }
         case (1): { // Monday
             now.setSeconds(0);
+
+            now.setHours(8);
+            now.setMinutes(0);
+            schedule.push([new Date(now.getTime()), "Passing Period (???->1)"]);
 
             now.setHours(8);
             now.setMinutes(5);
@@ -287,6 +295,10 @@ let loadSchedule = function () {
         }
         case (5): { // Friday
             now.setSeconds(0);
+
+            now.setHours(8);
+            now.setMinutes(0);
+            schedule.push([new Date(now.getTime()), "Passing Period (???->1)"]);
 
             now.setHours(8);
             now.setMinutes(5);
