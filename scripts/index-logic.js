@@ -62,6 +62,10 @@ let updateSchedule = function () {
         if (now < element[0]) {
             isDone = true;
             nextDisp.textContent = element[1];
+            if (localStorage.getItem(nextDisp.textContent + "-name") !== null) {
+                nextDisp.textContent = localStorage.getItem(nextDisp.textContent + "-name");
+            }
+
             setTarget(element[0]);
 
             if (prevTarget !== element[0]) {
