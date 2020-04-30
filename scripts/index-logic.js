@@ -5,6 +5,7 @@ let datetimeDisp = document.getElementById("datetime-disp");
 let table = document.getElementById("sched-body");
 let linkDisp = document.getElementById("link-disp");
 let endDisp = document.getElementById("end-disp");
+let noteDisp = document.getElementById("note-disp");
 
 document.getElementById("noscript").hidden = true;
 
@@ -230,11 +231,13 @@ let intervalHandler = function () {
 
     switch (now.getDay()) {
         case (0): { // Sunday
+            noteDisp.textContent = "It's Sunday! ᕕ( ᐛ )ᕗ"
             schoolsOut(1, 8, 5, "Period 1");
             updateTable();
             break;
         }
         case (6): { // Saturday
+            noteDisp.textContent = "It's Saturday! ᕕ( ᐛ )ᕗ"
             schoolsOut(2, 8, 5, "Period 1");
             updateTable();
             break;
@@ -242,6 +245,30 @@ let intervalHandler = function () {
         default: {
             updateSchedule();
             updateTable();
+
+            switch (now.getDay()) {
+                case (1): {
+                    noteDisp.textContent = "Monday: No History (starting 5/4)"
+                    break;
+                }
+                case (2): {
+                    noteDisp.textContent = "Tuesday: No Science (starting 5/4)"
+                    break;
+                }
+                case (3): {
+                    noteDisp.textContent = "Wednesday: No Math (starting 5/4). Double period today!"
+                    break;
+                }
+                case (4): {
+                    noteDisp.textContent = "Thursday: No Language (starting 5/4). Double period today!"
+                    break;
+                }
+                case (5): {
+                    noteDisp.textContent = "Friday: No English or Expos (starting 5/4)."
+                    break;
+                }
+            }
+
             break;
         }
     }
