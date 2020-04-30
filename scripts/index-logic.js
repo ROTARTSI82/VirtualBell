@@ -4,6 +4,7 @@ let nextDisp = document.getElementById("next-disp");
 let datetimeDisp = document.getElementById("datetime-disp");
 let table = document.getElementById("sched-body");
 let linkDisp = document.getElementById("link-disp");
+let endDisp = document.getElementById("end-disp");
 
 document.getElementById("noscript").hidden = true;
 
@@ -35,6 +36,7 @@ if (localStorage.getItem("bellSound") !== null) {
 let setTarget = function (date) {
     now = new Date();
     timeDisp.textContent = getTimeStr(date - now);
+    endDisp.textContent = date.toLocaleTimeString();
 };
 
 let now = new Date();
