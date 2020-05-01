@@ -100,12 +100,22 @@ let getLinkHTML = function (periodName) {
 
         return finalHTML;
     } else {
-        if (periodName === "Assembly") {
-            return "<a target=\"_blank\" href=\"https://harker.zoom.us/j/824361007\">https://harker.zoom.us/j/824361007</a>";
+        if (periodName === "Meeting" || periodName === "Assembly") {
+            return "Check <a href='https://schoology.harker.org' target='_blank'>Schoology</a> (Student Notes & Calendar) & <a target='_blank' href='https://gmail.com'>your email</a> & <a target=\"_blank\" href=\"https://docs.google.com/document/d/1sTkxpBtSHVsDVtlZuOgjbVR2ot434qEUplBgEp-nsmc/edit?usp=sharing\">this doc.</a>";
         }
-        if (periodName === "Meeting") {
-            return "No Links yet. Check Schoology & Your email.";
+
+        if (periodName === "L1" || periodName === "L2") {
+            return "Check <a href='https://schoology.harker.org' target='_blank'>Schoology</a> for lunchtime activities";
         }
+
+        if (periodName === "Clubs") {
+            if (now.getDay() === 2) {
+                return "<a href='https://docs.google.com/document/d/1PvdebSFGVd-z_nos4Jf4eiRY4wGtVNZAO7633IjOy6M/edit?usp=sharing' target='_blank'>Tuesday Club Offerings</a>"
+            } else if (now.getDay() === 4) {
+                return "<a href='https://docs.google.com/document/d/1AGHaliceTuctU5uugKlbt4V6ul8g8EG8KV2Grl7kjLs/edit?usp=sharing' target='_blank'>Thursday Club Offerings</a>"
+            }
+        }
+
         return "No Links";
     }
 };

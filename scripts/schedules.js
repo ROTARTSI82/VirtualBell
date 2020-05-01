@@ -388,4 +388,5 @@ let loadSchedule = function () {
             break;
         }
     }
+    now = new Date();
 };
