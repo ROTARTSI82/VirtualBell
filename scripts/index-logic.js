@@ -258,23 +258,23 @@ let intervalHandler = function () {
 
             switch (now.getDay()) {
                 case (1): {
-                    noteDisp.textContent = "Monday: No History (starting 5/4)"
+                    noteDisp.textContent = "Monday: No History. Meeting."
                     break;
                 }
                 case (2): {
-                    noteDisp.textContent = "Tuesday: No Science (starting 5/4)"
+                    noteDisp.textContent = "Tuesday: No Science. Clubs."
                     break;
                 }
                 case (3): {
-                    noteDisp.textContent = "Wednesday: No Math (starting 5/4). Double period today!"
+                    noteDisp.textContent = "Wednesday: No Math. Double period today! Late Start."
                     break;
                 }
                 case (4): {
-                    noteDisp.textContent = "Thursday: No Language (starting 5/4). Double period today!"
+                    noteDisp.textContent = "Thursday: No Language. Double period today! Clubs."
                     break;
                 }
                 case (5): {
-                    noteDisp.textContent = "Friday: No English or Expos (starting 5/4)."
+                    noteDisp.textContent = "Friday: No English or Expos. Assembly."
                     break;
                 }
             }
