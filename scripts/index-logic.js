@@ -100,8 +100,8 @@ let getLinkHTML = function (periodName) {
 
         return finalHTML;
     } else {
-        if (periodName === "Meeting" || periodName === "Assembly") {
-            return "Check <a href='https://schoology.harker.org' target='_blank'>Schoology</a> (Student Notes & Calendar) & <a target='_blank' href='https://gmail.com'>your email</a> & <a target=\"_blank\" href=\"https://docs.google.com/document/d/1sTkxpBtSHVsDVtlZuOgjbVR2ot434qEUplBgEp-nsmc/edit?usp=sharing\">this doc.</a>";
+        if (periodName === "Meeting" || periodName === "Assembly" || periodName === "LAST SCHOOL MEETING!") {
+            return "Check <a target=\"_blank\" href='https://docs.google.com/document/d/17N9cdgEif0JWkqdtXOdYsCzszI6eNXXq571RrOvT8CE/edit?usp=sharing'>student notes</a> and <a target=\"_blank\" href=\"https://docs.google.com/document/d/1sTkxpBtSHVsDVtlZuOgjbVR2ot434qEUplBgEp-nsmc/edit?usp=sharing\">this doc.</a>";
         }
 
         if (periodName === "L1" || periodName === "L2") {
