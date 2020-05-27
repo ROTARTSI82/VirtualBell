@@ -21,17 +21,13 @@ let setTuesThursSchedule = function () {
     now.setMinutes(34);
     schedule.push([new Date(now.getTime()), "Break"]);
 
-    // now.setHours(9);
-    // now.setMinutes(47);
-    // schedule.push([new Date(now.getTime()), "Passing Period (Break->Advisory)"]);
-    //
-    // now.setHours(9);
-    // now.setMinutes(52);
-    // schedule.push([new Date(now.getTime()), "Advisory"]);
-
     now.setHours(9);
-    now.setMinutes(39);
-    schedule.push([new Date(now.getTime()), "LAST SCHOOL MEETING!"]);
+    now.setMinutes(47);
+    schedule.push([new Date(now.getTime()), "Passing Period (Break->Advisory)"]);
+    
+    now.setHours(9);
+    now.setMinutes(52);
+    schedule.push([new Date(now.getTime()), "Advisory"]);
 
     now.setHours(10);
     now.setMinutes(10);
