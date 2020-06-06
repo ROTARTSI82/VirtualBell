@@ -242,13 +242,13 @@ let intervalHandler = function () {
     switch (now.getDay()) {
         case (0): { // Sunday
             noteDisp.textContent = "It's Sunday! ᕕ( ᐛ )ᕗ"
-            schoolsOut(1, 8, 5, "Period 1");
+            schoolsOut(1, 8, 30, "Period 1"); // TODO: REVERT
             updateTable();
             break;
         }
         case (6): { // Saturday
             noteDisp.textContent = "It's Saturday! ᕕ( ᐛ )ᕗ"
-            schoolsOut(2, 8, 5, "Period 1");
+            schoolsOut(2, 8, 30, "Period 1"); // TODO: REVERT
             updateTable();
             break;
         }
