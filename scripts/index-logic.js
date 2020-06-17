@@ -285,4 +285,4 @@ let intervalHandler = function () {
 
 };
 
-updateInterval = setInterval(intervalHandler, 250);
+//updateInterval = setInterval(intervalHandler, 250);
