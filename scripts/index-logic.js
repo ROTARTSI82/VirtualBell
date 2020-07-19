@@ -110,9 +110,9 @@ let getLinkHTML = function (periodName) {
 
         if (periodName === "Clubs") {
             if (now.getDay() === 2) {
-                return "<a href='https://docs.google.com/document/d/1PvdebSFGVd-z_nos4Jf4eiRY4wGtVNZAO7633IjOy6M/edit?usp=sharing' target='_blank'>Tuesday Club Offerings</a>"
+                return "Check <a href='https://schoology.harker.org'>schoology</a> for Tuesday Club Offerings."
             } else if (now.getDay() === 4) {
-                return "<a href='https://docs.google.com/document/d/1AGHaliceTuctU5uugKlbt4V6ul8g8EG8KV2Grl7kjLs/edit?usp=sharing' target='_blank'>Thursday Club Offerings</a>"
+                return "Check <a href='https://schoology.harker.org'>schoology</a> for Thursday Club Offerings."
             }
         }
 
@@ -241,13 +241,13 @@ let intervalHandler = function () {
 
     switch (now.getDay()) {
         case (0): { // Sunday
-            noteDisp.textContent = "It's Sunday! ᕕ( ᐛ )ᕗ"
+            noteDisp.textContent = "It's Sunday! ᕕ( ᐛ )ᕗ";
             schoolsOut(1, 8, 5, "Period 1");
             updateTable();
             break;
         }
         case (6): { // Saturday
-            noteDisp.textContent = "It's Saturday! ᕕ( ᐛ )ᕗ"
+            noteDisp.textContent = "It's Saturday! ᕕ( ᐛ )ᕗ";
             schoolsOut(2, 8, 5, "Period 1");
             updateTable();
             break;
@@ -258,23 +258,23 @@ let intervalHandler = function () {
 
             switch (now.getDay()) {
                 case (1): {
-                    noteDisp.textContent = "Monday: No History. Meeting."
+                    noteDisp.textContent = "Monday: No History. Meeting.";
                     break;
                 }
                 case (2): {
-                    noteDisp.textContent = "Tuesday: No Science. Clubs."
+                    noteDisp.textContent = "Tuesday: No Science. Clubs.";
                     break;
                 }
                 case (3): {
-                    noteDisp.textContent = "Wednesday: No Math. Double period today! Late Start."
+                    noteDisp.textContent = "Wednesday: No Math. Double period today! Late Start.";
                     break;
                 }
                 case (4): {
-                    noteDisp.textContent = "Thursday: No Language. Double period today! Clubs."
+                    noteDisp.textContent = "Thursday: No Language. Double period today! Clubs.";
                     break;
                 }
                 case (5): {
-                    noteDisp.textContent = "Friday: No English or Expos. Assembly."
+                    noteDisp.textContent = "Friday: No English or Expos. Assembly.";
                     break;
                 }
             }

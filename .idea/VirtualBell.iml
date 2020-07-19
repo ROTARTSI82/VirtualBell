@@ -7,11 +7,11 @@
     <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="jquery-3.4.1.slim" level="application" />
     <orderEntry type="library" name="popper" level="application" />
-    <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="library" name="jquery-3.4.1.slim" level="application" />
     <orderEntry type="library" name="popper" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="index" level="application" />
+    <orderEntry type="library" name="crypto-js" level="application" />
     <orderEntry type="library" name="crypto-js" level="application" />
   </component>
 </module>
