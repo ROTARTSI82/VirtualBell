@@ -32,6 +32,124 @@
 </head>
 <body>
 
+<div class="modal fade" id="cantSave" tabindex="-1" role="dialog" aria-labelledby="cantSaveLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cantSaveLabel">Can't Save Schedule!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Please supply a valid time for every event, or delete empty events.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="noMoveup" tabindex="-1" role="dialog" aria-labelledby="noMoveupLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="noMoveupLabel">Can't Move Event!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                You can't move the topmost event up! I've thought of that edge case already >:]
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="noMovedown" tabindex="-1" role="dialog" aria-labelledby="noMovedownLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="noMovedownLabel">Can't Move Event!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                You can't move the bottommost event down! I've thought of that edge case already >:]
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="eventLater" tabindex="-1" role="dialog" aria-labelledby="eventLaterLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventLaterLabel">Can't Save Schedule!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                No, no no! Every event must be at a later time than the previous events!
+
+                You were trying to make my code crash and burn, weren't you >:[
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="saved" tabindex="-1" role="dialog" aria-labelledby="savedLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="savedLabel">Success!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Operation was successful.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="clearData" tabindex="-1" role="dialog" aria-labelledby="clearLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="clearLabel">Are you sure?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to reset the schedule for this day to the default?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="localStorage.removeItem(getDayStr(targetedDay) + '-schedule'); $('#saved').modal('show'); updateDisplayedSched();">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="pad center">
     <div class="pad center dark-theme bg-dark">
         <h1>Harker MS Virtual Bell - Customize Schedule</h1>
@@ -70,10 +188,13 @@
 
         <div class="row">
             <div class="col-sm">
-                <button type="button" class="btn btn-primary" onclick="custBody.innerHTML += rowHtml;">Add An Event</button>
+                <button type="button" class="btn btn-primary" onclick="addRow();">Add An Event</button>
             </div>
             <div class="col-sm">
-                <button type="button" class="btn btn-primary" onclick="saveCustomSched();">Save Schedule for <span id="disp-day-btn" class="disp">ERROR</span></button>
+                <button type="button" class="btn btn-danger" onclick="$('#clearData').modal('show');">Reset Schedule for <span id="disp-day-btn2" class="disp">ERROR</span></button>
+            </div>
+            <div class="col-sm">
+                <button type="button" class="btn btn-primary" onclick="saveCustomSched(true);">Save Schedule for <span id="disp-day-btn" class="disp">ERROR</span></button>
             </div>
         </div>
 
