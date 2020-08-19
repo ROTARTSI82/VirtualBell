@@ -32,6 +32,44 @@
 </head>
 <body>
 
+<div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="successLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successLabel">Success!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Operation was successful.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="selectSomething" tabindex="-1" role="dialog" aria-labelledby="selSomLab" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="selSomLab">Can't Save Custom Names/Links!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                You must select a valid event to modify for each row!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="pad center">
     <div class="pad center dark-theme bg-dark">
         <h1>Harker MS Virtual Bell - Settings</h1>
@@ -46,6 +84,8 @@
             </select>
         </div>
         <button class="btn btn-primary" id="save-bell" type="button">Save Bell Sound & Play</button>
+        <hr>
+        <h1><a href="customize-schedule.html">Customize Schedule</a></h1>
 
         <hr>
 
@@ -59,97 +99,27 @@
             <tr>
                 <th scope="col">Event</th>
                 <th scope="col">Custom Name</th>
-                <th scope="col">Zoom Link</th>
+                <th scope="col">Zoom Links</th>
+                <th scope="col">Actions</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <th scope="row">Period 1</th>
-                <td>
-                    <input class="form-control" id="per1-name"
-                           placeholder="Custom Name [eg. 'P1 Rocket Science (Mr. Jeb Kerman)']" type="text">
-                </td>
-                <td>
-                    <input class="form-control" id="per1-link"
-                           placeholder="Links (space seperated) [eg. 'https://harker.zoom.us/j/123 https://flipgrid.com/abc']"
-                           type="text">
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">Period 2</th>
-                <td>
-                    <input class="form-control" id="per2-name" placeholder="Custom Name " type="text">
-                </td>
-                <td>
-                    <input class="form-control" id="per2-link" placeholder="Links" type="text">
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">Advisory</th>
-                <td>
-                    <input class="form-control" id="adv-name" placeholder="Custom Name" type="text">
-                </td>
-                <td>
-                    <input class="form-control" id="adv-link" placeholder="Links" type="text">
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">Period 3</th>
-                <td>
-                    <input class="form-control" id="per3-name" placeholder="Custom Name" type="text">
-                </td>
-                <td>
-                    <input class="form-control" id="per3-link" placeholder="Links" type="text">
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">Period 4</th>
-                <td>
-                    <input class="form-control" id="per4-name" placeholder="Custom Name" type="text">
-                </td>
-                <td>
-                    <input class="form-control" id="per4-link" placeholder="Links" type="text">
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">Period 5</th>
-                <td>
-                    <input class="form-control" id="per5-name" placeholder="Custom Name" type="text">
-                </td>
-                <td>
-                    <input class="form-control" id="per5-link" placeholder="Links" type="text">
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">Period 6</th>
-                <td>
-                    <input class="form-control" id="per6-name" placeholder="Custom Name" type="text">
-                </td>
-                <td>
-                    <input class="form-control" id="per6-link" placeholder="Links" type="text">
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">Period 7</th>
-                <td>
-                    <input class="form-control" id="per7-name" placeholder="Custom Name" type="text">
-                </td>
-                <td>
-                    <input class="form-control" id="per7-link" placeholder="Links" type="text">
-                </td>
-            </tr>
+            <tbody id="tcust-names-bod">
             </tbody>
         </table>
 
-        <button class="btn btn-primary" id="save-sched" type="button">Save Custom Schedule</button>
-
+        <div class="row">
+            <div class="col-sm">
+                <button class="btn btn-primary" id="save-sched" type="button">Save Custom Schedule</button>
+            </div>
+            <div class="col-sm">
+                <button class="btn btn-primary" type="button" id="add-custom-row" onclick="addCustRow();">Add Custom Row</button>
+            </div>
+        </div>
         <hr>
         <h5><a href="index.html">← Back to the Bell</a></h5>
 
     </div>
 </div>
-
-<script src="scripts/settings-logic.js"></script>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -159,6 +129,10 @@
         src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script crossorigin="anonymous" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<script src="scripts/default-schedules.js"></script>
+<script src="scripts/settings-logic.js"></script>
+
 </body>
 </html>
 
