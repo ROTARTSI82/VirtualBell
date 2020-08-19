@@ -32,6 +32,16 @@
 </head>
 <body>
 
+<div class="alert alert-danger fixed-top ml-5 mr-5 mt-2" role="alert">
+    <h4 class="alert-heading">
+        <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        Hey! This page is for adding your own events to the schedule, like extracurricular activities.
+        Use the <a href="settings.html">Settings page</a> for adding custom links and names!
+    </h4>
+</div>
+
 <div class="modal fade" id="cantSave" tabindex="-1" role="dialog" aria-labelledby="cantSaveLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -149,16 +159,30 @@
     </div>
 </div>
 
+<div class="modal fade" id="clearDataAll" tabindex="-1" role="dialog" aria-labelledby="clearAllLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="clearAllLabel">Are you sure?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to reset ALL schedules to their default?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetAllScheds(); $('#saved').modal('show'); updateDisplayedSched();">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="pad center">
     <div class="pad center dark-theme bg-dark">
         <h1>Harker MS Virtual Bell - Customize Schedule</h1>
-
-        <p class="lead">
-            NOTE: When pressing "Next Day" or "Previous Day", the schedule will automatically be saved as if you
-            had pressed "Save Schedule for {DAY}". However, the schedule will NOT save if you leave this page before
-            pressing "Save Schedule".
-        </p>
 
         <hr>
         <div class="row">
@@ -189,6 +213,9 @@
         <div class="row">
             <div class="col-sm">
                 <button type="button" class="btn btn-primary" onclick="addRow();">Add An Event</button>
+            </div>
+            <div class="col-sm">
+                <button type="button" class="btn btn-danger" onclick="$('#clearDataAll').modal('show');">Reset <b class="disp">ALL</b> Schedules</button>
             </div>
             <div class="col-sm">
                 <button type="button" class="btn btn-danger" onclick="$('#clearData').modal('show');">Reset Schedule for <span id="disp-day-btn2" class="disp">ERROR</span></button>

@@ -145,4 +145,9 @@ let addRow = function() {
     custBody.appendChild(nr);
 }
 
+let resetAllScheds = function() {
+    for (let i = 0; i < 7; i++) {
+        localStorage.removeItem(getDayStr(i) + "-schedule");
+    }
+}
 
