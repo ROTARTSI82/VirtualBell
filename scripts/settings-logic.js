@@ -55,7 +55,7 @@ for (let i = 0; i < localStorage.length; i++) {
     let k = localStorage.key(i);
     let v = localStorage.getItem(k);
 
-    if (/^.*-link$/g.test(k)) {
+    if (k.endsWith("-link")) {
         k = k.substr(0, k.length - 5);
         if (rowMap.has(k)) {
             rowMap.set(k, {name: rowMap.get(k).name, link: v});
@@ -64,7 +64,7 @@ for (let i = 0; i < localStorage.length; i++) {
         }
     }
 
-    if (/^.*-name$/g.test(k)) {
+    if (k.endsWith("-name")) {
         k = k.substr(0, k.length - 5);
         if (rowMap.has(k)) {
             rowMap.set(k, {name: v, link: rowMap.get(k).link});
@@ -85,8 +85,32 @@ saveBell.onclick = function () {
 };
 
 saveSched.onclick = function () {
-    $('#success').modal('show');
+    let toRm = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        let k = localStorage.key(i);
+        if (k.endsWith("-link") || k.endsWith("-name")) {
+            toRm.push(k);
+        }
+    }
 
+    for (let i of toRm) {
+        localStorage.removeItem(i);
+    }
+
+    for (let i of tbody.children) {
+        let evName = i.firstElementChild.firstElementChild.value;
+        if (!evName) {
+            $('#selectSomething').modal('show');
+            return;
+        }
+
+        let evCName = i.children[1].firstElementChild.value;
+        let evLink = i.children[2].firstElementChild.value;
+        localStorage.setItem(evName + "-link", evLink);
+        localStorage.setItem(evName + "-name", evCName);
+    }
+
+    $('#success').modal('show');
 };
 
 let addCustRow = function() {
@@ -100,5 +124,14 @@ let addCustRow = function() {
     }
 
     tbody.appendChild(nr);
+    return nr;
 }
+
+rowMap.forEach(function(value, key) {
+    console.log(key + ' = ' + value);
+    let nr = addCustRow();
+    nr.firstElementChild.firstElementChild.value = key;
+    nr.children[1].firstElementChild.value = value.name;
+    nr.children[2].firstElementChild.value = value.link;
+});
 
