@@ -1,3 +1,5 @@
+let clip = new ClipboardJS(".clip-btn");
+
 let saveSched = document.getElementById("save-sched");
 let bellSelect = document.getElementById("sound-select");
 let saveBell = document.getElementById("save-bell");
@@ -5,26 +7,9 @@ let tbody = document.getElementById("tcust-names-bod");
 
 resetAllScheds(); // TODO: SPECIAL SCHEDULE
 
+let firstOption = "<option value=\"\" disabled selected>Select an Event</option>";
+let rowMap = new Map();
 let uniqueEvents = [];
-for (let i = 0; i < 7; i++) {
-    let sched = localStorage.getItem(getDayStr(i) + "-schedule");
-    if (sched === null) {
-        sched = getDefaultSched(i);
-    }
-
-    if ( sched !== "off_duty" && sched ) {
-        let evs = sched.split("~[SE]~");
-        for (let j of evs) {
-            let uev = j.split("~[SA]~")[0];
-            if (!uniqueEvents.includes(uev) && uev !== "Break" && !uev.includes("Passing Period")) {
-                uniqueEvents.push(uev);
-            }
-        }
-    }
-}
-
-console.log(uniqueEvents);
-
 let evrHtml = "<th scope=\"row\">\n" +
     "                    <select class=\"form-control\">\n" +
     "                    </select>\n" +
@@ -42,49 +27,86 @@ let evrHtml = "<th scope=\"row\">\n" +
     "                    <button type=\"button\" class=\"btn btn-danger\" onclick=\"this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);\">Delete</button>\n" +
     "                </td>";
 
-let firstOption = "<option value=\"\" disabled selected>Select an Event</option>";
+let loadSettingsOntoPage = function() {
 
-if (localStorage.getItem("bellSound") !== null) {
-    // Uh, totally didn't ctrl v from StackOverflow
-    document.querySelector("#sound-select option[value='" + localStorage.getItem("bellSound") + "']").setAttribute('selected', true);
-}
+    tbody.innerHTML = "";
+    bellSelect.value = "bellSounds/bell2.wav";
 
+    uniqueEvents = [];
+    for (let i = 0; i < 7; i++) {
+        let sched = localStorage.getItem(getDayStr(i) + "-schedule");
+        if (sched === null) {
+            sched = getDefaultSched(i);
+        }
 
-let rowMap = new Map();
-for (let i = 0; i < localStorage.length; i++) {
-    let k = localStorage.key(i);
-    let v = localStorage.getItem(k);
-
-    if (k.endsWith("-link")) {
-        k = k.substr(0, k.length - 5);
-        if (rowMap.has(k)) {
-            rowMap.set(k, {name: rowMap.get(k).name, link: v});
-        } else {
-            rowMap.set(k, {name: "", link: v});
+        if ( sched !== "off_duty" && sched ) {
+            let evs = sched.split("~[SE]~");
+            for (let j of evs) {
+                let uev = j.split("~[SA]~")[0];
+                if (!uniqueEvents.includes(uev) && uev !== "Break" && !uev.includes("Passing Period")) {
+                    uniqueEvents.push(uev);
+                }
+            }
         }
     }
 
-    if (k.endsWith("-name")) {
-        k = k.substr(0, k.length - 5);
-        if (rowMap.has(k)) {
-            rowMap.set(k, {name: v, link: rowMap.get(k).link});
-        } else {
-            rowMap.set(k, {name: v, link: ""});
+    uniqueEvents.sort();
+
+    console.log(uniqueEvents);
+
+
+    if (localStorage.getItem("bellSound") !== null) {
+        // Uh, totally didn't ctrl v from StackOverflow
+        document.querySelector("#sound-select option[value='" + localStorage.getItem("bellSound") + "']").setAttribute('selected', true);
+    }
+
+
+    rowMap = new Map();
+    for (let i = 0; i < localStorage.length; i++) {
+        let k = localStorage.key(i);
+        let v = localStorage.getItem(k);
+
+        if (k.endsWith("-link")) {
+            k = k.substr(0, k.length - 5);
+            if (rowMap.has(k)) {
+                rowMap.set(k, {name: rowMap.get(k).name, link: v});
+            } else {
+                rowMap.set(k, {name: "", link: v});
+            }
+        }
+
+        if (k.endsWith("-name")) {
+            k = k.substr(0, k.length - 5);
+            if (rowMap.has(k)) {
+                rowMap.set(k, {name: v, link: rowMap.get(k).link});
+            } else {
+                rowMap.set(k, {name: v, link: ""});
+            }
         }
     }
-}
 
-console.log(rowMap);
+    rowMap = new Map([...rowMap.entries()].sort());
+
+    console.log(rowMap);
+
+    rowMap.forEach(function(value, key) {
+        console.log(key + ' = ' + value);
+        let nr = addCustRow();
+        nr.firstElementChild.firstElementChild.value = key;
+        nr.children[1].firstElementChild.value = value.name;
+        nr.children[2].firstElementChild.value = value.link;
+    });
+}
 
 let previewSound = new Audio();
-saveBell.onclick = function () {
+let saveBellFunc = function (p) {
     localStorage.setItem("bellSound", bellSelect.options[bellSelect.selectedIndex].value);
 
     previewSound = new Audio(localStorage.getItem("bellSound"));
-    previewSound.play();
+    if (p) { previewSound.play(); $('#success').modal('show');}
 };
 
-saveSched.onclick = function () {
+let saveSchedFunc = function (ss) {
     let toRm = [];
     for (let i = 0; i < localStorage.length; i++) {
         let k = localStorage.key(i);
@@ -101,7 +123,7 @@ saveSched.onclick = function () {
         let evName = i.firstElementChild.firstElementChild.value;
         if (!evName) {
             $('#selectSomething').modal('show');
-            return;
+            return false;
         }
 
         let evCName = i.children[1].firstElementChild.value;
@@ -110,7 +132,10 @@ saveSched.onclick = function () {
         localStorage.setItem(evName + "-name", evCName);
     }
 
-    $('#success').modal('show');
+    if (ss) {
+        $('#success').modal('show');
+    }
+    return true;
 };
 
 let addCustRow = function() {
@@ -127,11 +152,42 @@ let addCustRow = function() {
     return nr;
 }
 
-rowMap.forEach(function(value, key) {
-    console.log(key + ' = ' + value);
-    let nr = addCustRow();
-    nr.firstElementChild.firstElementChild.value = key;
-    nr.children[1].firstElementChild.value = value.name;
-    nr.children[2].firstElementChild.value = value.link;
-});
+let showExport = function() {
+    if (!saveSchedFunc(false)) {
+        return;
+    }
 
+    saveBellFunc(false);
+
+    let exp = "";
+    for (let i = 0; i < localStorage.length; i++) {
+        let k = localStorage.key(i);
+        let v = localStorage.getItem(k);
+        exp += k;
+        exp += "~[SV]~";
+        exp += v;
+        exp += "~[SK]~";
+    }
+
+    if (exp.endsWith("~[SK]~")) {
+        exp = exp.substr(0, exp.length - 6);
+    }
+
+    $('#exportModal').modal('show');
+    document.getElementById("exportOut").value = exp;
+}
+
+let importSettings = function() {
+    localStorage.clear();
+    let impStr = document.getElementById('importIn').value;
+    for (let i of impStr.split("~[SK]~")) {
+        let args = i.split("~[SV]~");
+        localStorage.setItem(args[0], args[1]);
+    }
+
+    loadSettingsOntoPage();
+    $('#success').modal('show');
+}
+
+
+loadSettingsOntoPage();

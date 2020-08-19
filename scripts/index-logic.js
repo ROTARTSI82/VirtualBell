@@ -99,7 +99,11 @@ let getLinkHTML = function (periodName) {
         if (advLink !== null) {
             advLink = advLink.split(" ");
             advLink.forEach(function (element) {
-                finalHTML += "<a target=\"_blank\" href=\"" + element + "\">" + element + "</a>, ";
+                if (/[A-z]+:\/\/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/g.test(element)) {
+                    finalHTML += "<a target=\"_blank\" href=\"" + element + "\">" + element + "</a>, ";
+                } else {
+                    finalHTML += element + ', ';
+                }
             });
         } else {
             finalHTML += "Advisory";
@@ -114,7 +118,11 @@ let getLinkHTML = function (periodName) {
         let finalHTML = "";
 
         linkList.forEach(function (element) {
-            finalHTML += "<a target=\"_blank\" href=\"" + element + "\">" + element + "</a>, ";
+            if (/[A-z]+:\/\/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/g.test(element)) {
+                finalHTML += "<a target=\"_blank\" href=\"" + element + "\">" + element + "</a>, ";
+            } else {
+                finalHTML += element + ', ';
+            }
         });
 
         return finalHTML;
@@ -258,36 +266,11 @@ let intervalHandler = function () {
         currentDay = now.getDate();
     }
 
-    switch (now.getDay()) {
-        case (0): { // Sunday
-            noteDisp.textContent = "It's Sunday! ᕕ( ᐛ )ᕗ";
-            break;
-        }
-        case (6): { // Saturday
-            noteDisp.textContent = "It's Saturday! ᕕ( ᐛ )ᕗ";
-            break;
-        }
-        case (1): {
-            noteDisp.textContent = "Monday: No History. Meeting.";
-            break;
-        }
-        case (2): {
-            noteDisp.textContent = "Tuesday: No Science. Clubs.";
-            break;
-        }
-        case (3): {
-            noteDisp.textContent = "Wednesday: No Math. Double period today! Late Start.";
-            break;
-        }
-        case (4): {
-            noteDisp.textContent = "Thursday: No Language. Double period today! Clubs.";
-            break;
-        }
-        case (5): {
-            noteDisp.textContent = "Friday: No English or Expos. Assembly.";
-            break;
-        }
+    noteDisp.textContent = localStorage.getItem(getDayStr(now.getDay()) + "-motd");
+    if (!noteDisp.textContent) {
+        noteDisp.textContent = getDefaultMotd(now.getDay());
     }
+
     updateSchedule();
     updateTable();
 

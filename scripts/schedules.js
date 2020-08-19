@@ -16,23 +16,19 @@ let loadSchedule = function () {
         sched = getDefaultSched(new Date().getDay());
     }
 
-    if (sched !== null) {
-        // alert(sched);
-        if (sched === "off_duty" || !sched) {
-            // pass through
-        } else {
-            let items = sched.split("~[SE]~");
-            for (let i = 0; i < items.length; i++) {
-                let args = items[i].split("~[SA]~");
-                now.setHours(parseInt(args[1], 10));
-                now.setMinutes(parseInt(args[2], 10));
+    if (sched === null) {
+        sched = getDefaultSched(new Date().getDay());
+    }
 
-                schedule.push([new Date(now.getTime()), args[0]]);
-            }
+    if (sched !== "off_duty" && sched) {
+        let items = sched.split("~[SE]~");
+        for (let i = 0; i < items.length; i++) {
+            let args = items[i].split("~[SA]~");
+            now.setHours(parseInt(args[1], 10));
+            now.setMinutes(parseInt(args[2], 10));
+
+            schedule.push([new Date(now.getTime()), args[0]]);
         }
-    } else {
-        localStorage.setItem(td + "-schedule", getDefaultSched(new Date().getDay()));
-        loadSchedule();
     }
 
     let dn = new Date().getDay();
@@ -46,11 +42,11 @@ let loadSchedule = function () {
 
         let sched = null;
         if (doLoadCustom) {
-            if (localStorage.getItem(ndName + "-schedule") === null) {
-                localStorage.setItem(ndName + "-schedule", getDefaultSched(i));
-            }
-
             sched = localStorage.getItem(ndName + "-schedule");
+
+            if (sched === null) {
+                sched = getDefaultSched(i);
+            }
         } else {
             sched = getDefaultSched(i);
         }

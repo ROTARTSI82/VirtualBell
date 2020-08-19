@@ -13,6 +13,11 @@ body {
     align-content: center !important;
     align-items: center !important;
     align-self: center !important;
+    justify-content: center;
+}
+
+.inner-center {
+    margin: 0 auto !important;
 }
 
 .align-left {

@@ -95,8 +95,16 @@ let saveCustomSched = function(b) {
 }
 
 let updateDisplayedSched = function() {
+
     custBody.innerHTML = "";
     let day = getDayStr(targetedDay);
+
+    let motd = localStorage.getItem(day + "-motd");
+    if (motd !== null) {
+        document.getElementById('motd').value = motd;
+    } else {
+        document.getElementById('motd').value = getDefaultMotd(targetedDay);
+    }
 
     if (localStorage.getItem(day + "-schedule") !== null) {
         let sched = localStorage.getItem(day + "-schedule");

@@ -70,6 +70,89 @@
     </div>
 </div>
 
+<div class="modal fade bd-example-modal-lg" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="expMLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="expMLabel">Exported Settings</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Here are your exported settings! This includes your custom schedules, custom MOTDs,
+                and custom names and links. Save this somewhere!
+                <hr>
+                <!-- Target -->
+                <div class="input-group mb-3">
+                    <input id="exportOut" class="form-control" value="ERROR" type="text" placeholder="ERROR" readonly>
+                    <div class="input-group-append">
+                        <button class="clip-btn input-group-text" data-clipboard-target="#exportOut">
+                            Copy
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="importModal" tabindex="-1" role="dialog" aria-labelledby="impMLab"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="impMLab">Import Settings</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Paste your exported settings string into the box below and hit Import!
+                <hr>
+                <div class="alert alert-warning" role="alert">
+                    <b>WARNING: </b> Importing settings will clear your existing settings!
+                </div>
+                <input id="importIn" class="form-control" type="text" placeholder="Paste Exported Settings String Here...">
+                <button class="btn btn-primary mt-2" type="button" data-dismiss="modal" onclick="importSettings();">Import!</button>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="resetAllSettings" tabindex="-1" role="dialog" aria-labelledby="resetAllLab"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="resetAllLab">Are you sure?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to reset ALL settings to their defaults? This includes your
+                custom schedules, custom names/links, and custom MOTDs.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"
+                        onclick="localStorage.clear(); loadSettingsOntoPage(); $('#success').modal('show');">Yes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="pad center">
     <div class="pad center dark-theme bg-dark">
         <h1>Harker MS Virtual Bell - Settings</h1>
@@ -83,7 +166,9 @@
                 <option value="bellSounds/ThemeSong.mp3">Trumpet Theme Song</option>
             </select>
         </div>
-        <button class="btn btn-primary" id="save-bell" type="button">Save Bell Sound & Play</button>
+        <button class="btn btn-primary" id="save-bell" type="button" onclick="saveBellFunc(true);">Save Bell Sound &
+            Play
+        </button>
         <hr>
         <h1><a href="customize-schedule.html">Customize Schedule</a></h1>
 
@@ -109,10 +194,28 @@
 
         <div class="row">
             <div class="col-sm">
-                <button class="btn btn-primary" id="save-sched" type="button">Save Custom Schedule</button>
+                <button class="btn btn-primary" type="button" id="add-custom-row" onclick="addCustRow();">Add Custom
+                    Row
+                </button>
             </div>
             <div class="col-sm">
-                <button class="btn btn-primary" type="button" id="add-custom-row" onclick="addCustRow();">Add Custom Row</button>
+                <button class="btn btn-primary" id="save-sched" type="button" onclick="saveSchedFunc(true);">Save Custom
+                    Schedule
+                </button>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm">
+                <button class="btn btn-primary" type="button" onclick="$('#importModal').modal('show');">Import Settings</button>
+            </div>
+            <div class="col-sm">
+                <button class="btn btn-danger" type="button" onclick="$('#resetAllSettings').modal('show');">Reset ALL
+                    Settings
+                </button>
+            </div>
+            <div class="col-sm">
+                <button class="btn btn-primary" type="button" onclick="showExport();">Export Settings</button>
             </div>
         </div>
         <hr>
@@ -123,6 +226,8 @@
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+
 <script crossorigin="anonymous" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 <script crossorigin="anonymous" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
