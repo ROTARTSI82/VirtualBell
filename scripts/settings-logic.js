@@ -3,6 +3,7 @@ let bellSelect = document.getElementById("sound-select");
 let saveBell = document.getElementById("save-bell");
 let tbody = document.getElementById("tcust-names-bod");
 
+resetAllScheds(); // TODO: SPECIAL SCHEDULE
 
 let uniqueEvents = [];
 for (let i = 0; i < 7; i++) {

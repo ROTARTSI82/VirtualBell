@@ -1,5 +1,7 @@
 // localStorage.clear();
 
+resetAllScheds(); // TODO: SPECIAL SCHEDULE
+
 let custBody = document.getElementById("schedule-custom-body");
 let dayDispBtn = document.getElementById("disp-day-btn");
 let dayDispTop = document.getElementById("disp-day");
@@ -143,11 +145,5 @@ let addRow = function() {
     let nr = document.createElement("tr");
     nr.innerHTML = rowHtml;
     custBody.appendChild(nr);
-}
-
-let resetAllScheds = function() {
-    for (let i = 0; i < 7; i++) {
-        localStorage.removeItem(getDayStr(i) + "-schedule");
-    }
 }
 

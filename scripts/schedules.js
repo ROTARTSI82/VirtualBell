@@ -1,3 +1,6 @@
+
+let doLoadCustom = false; // TODO: SPECIAL SCHEDULE
+
 let loadSchedule = function () {
     ///////////////////////////////////////////
     now = new Date();
@@ -6,8 +9,14 @@ let loadSchedule = function () {
 
     let td = getDayStr(now.getDay());
 
-    if (localStorage.getItem(td + "-schedule") !== null) {
-        let sched = localStorage.getItem(td + "-schedule");
+    let sched = null;
+    if (doLoadCustom) {
+        sched = localStorage.getItem(td + "-schedule");
+    } else {
+        sched = getDefaultSched(new Date().getDay());
+    }
+
+    if (sched !== null) {
         // alert(sched);
         if (sched === "off_duty" || !sched) {
             // pass through
@@ -34,12 +43,18 @@ let loadSchedule = function () {
         }
 
         let ndName = getDayStr(i);
-        if (localStorage.getItem(ndName + "-schedule") === null) {
-            localStorage.setItem(ndName + "-schedule", getDefaultSched(i));
 
+        let sched = null;
+        if (doLoadCustom) {
+            if (localStorage.getItem(ndName + "-schedule") === null) {
+                localStorage.setItem(ndName + "-schedule", getDefaultSched(i));
+            }
+
+            sched = localStorage.getItem(ndName + "-schedule");
+        } else {
+            sched = getDefaultSched(i);
         }
 
-        let sched = localStorage.getItem(ndName + "-schedule");
         // alert("NEXT WILL BE ITER SCHED");
         // alert(sched);
         if (sched === "off_duty" || !sched) {
