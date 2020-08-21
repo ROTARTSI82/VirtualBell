@@ -5,8 +5,6 @@ let bellSelect = document.getElementById("sound-select");
 let saveBell = document.getElementById("save-bell");
 let tbody = document.getElementById("tcust-names-bod");
 
-resetAllScheds(); // TODO: SPECIAL SCHEDULE
-
 let firstOption = "<option value=\"\" disabled selected>Select an Event</option>";
 let rowMap = new Map();
 let uniqueEvents = [];

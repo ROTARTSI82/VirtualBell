@@ -7,8 +7,6 @@ let linkDisp = document.getElementById("link-disp");
 let endDisp = document.getElementById("end-disp");
 let noteDisp = document.getElementById("note-disp");
 
-resetAllScheds(); // TODO: SPECIAL SCHEDULE
-
 document.getElementById("noscript").hidden = true;
 
 let offDuty = "Free Time";
@@ -32,7 +30,6 @@ if (localStorage.getItem("bellSound") !== null) {
     bellSound = new Audio(localStorage.getItem("bellSound"));
 } else {  // Set default bell sound
     bellSound = new Audio("bellSounds/bell2.wav");
-    localStorage.setItem("bellSound", "bellSounds/bell2.wav");
 }
 // bellSound.play();
 
@@ -91,26 +88,6 @@ let updateSchedule = function () {
 };
 
 let getLinkHTML = function (periodName) {
-    if (periodName === "Advisory for 6th, Meeting for 7th & 8th") { // TODO: SPECIAL SCHEDULE
-        let advLink = localStorage.getItem("Advisory-link");
-
-        let finalHTML = "<a href=\"https://harker.zoom.us/j/3703277124\">https://harker.zoom.us/j/3703277124</a> for 7th & 8th, ";
-
-        if (advLink !== null) {
-            advLink = advLink.split(" ");
-            advLink.forEach(function (element) {
-                if (/[A-z]+:\/\/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/g.test(element)) {
-                    finalHTML += "<a target=\"_blank\" href=\"" + element + "\">" + element + "</a>, ";
-                } else {
-                    finalHTML += element + ', ';
-                }
-            });
-        } else {
-            finalHTML += "Advisory";
-        }
-
-        return finalHTML + " for 6th";
-    }
 
     let linkPack = localStorage.getItem(periodName + "-link");
     if (linkPack !== null) {

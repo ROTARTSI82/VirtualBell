@@ -1,6 +1,5 @@
 // localStorage.clear();
 
-resetAllScheds(); // TODO: SPECIAL SCHEDULE
 
 let custBody = document.getElementById("schedule-custom-body");
 let dayDispBtn = document.getElementById("disp-day-btn");
@@ -106,26 +105,24 @@ let updateDisplayedSched = function() {
         document.getElementById('motd').value = getDefaultMotd(targetedDay);
     }
 
-    if (localStorage.getItem(day + "-schedule") !== null) {
-        let sched = localStorage.getItem(day + "-schedule");
-        if (sched === "off_duty" || !sched) {
-            return;
-        }
+    let sched = localStorage.getItem(day + "-schedule");
+    if (sched === null) {
+        sched = getDefaultSched(targetedDay);
+    }
+    if (sched === "off_duty" || !sched) {
+        return;
+    }
 
-        let items = sched.split("~[SE]~");
-        for (let i = 0; i < items.length; i++) {
-            custBody.innerHTML += "<tr>" + rowHtml + "</tr>";
-        }
+    let items = sched.split("~[SE]~");
+    for (let i = 0; i < items.length; i++) {
+        custBody.innerHTML += "<tr>" + rowHtml + "</tr>";
+    }
 
-        for (let i = 0; i < items.length; i++) {
-            let args = items[i].split("~[SA]~");
+    for (let i = 0; i < items.length; i++) {
+        let args = items[i].split("~[SA]~");
 
-            custBody.children[i].firstElementChild.firstElementChild.value = args[0];
-            custBody.children[i].children[1].firstElementChild.value = args[1] + ":" + args[2];
-        }
-    } else {
-        localStorage.setItem(day + "-schedule", getDefaultSched(targetedDay));
-        updateDisplayedSched();
+        custBody.children[i].firstElementChild.firstElementChild.value = args[0];
+        custBody.children[i].children[1].firstElementChild.value = args[1] + ":" + args[2];
     }
 }
 
