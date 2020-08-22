@@ -1,5 +1,5 @@
 
-let doLoadCustom = false; // TODO: SPECIAL SCHEDULE
+let doLoadCustom = true; // TODO: SPECIAL SCHEDULE
 
 let loadSchedule = function () {
     ///////////////////////////////////////////
