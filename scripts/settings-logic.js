@@ -18,7 +18,7 @@ let evrHtml = "<th scope=\"row\">\n" +
     "                </td>\n" +
     "                <td>\n" +
     "                    <input class=\"form-control\" id=\"per1-link\"\n" +
-    "                           placeholder=\"Links (space separated) [eg. 'https://harker.zoom.us/j/123']\"\n" +
+    "                           placeholder=\"Links & Notes [eg. 'https://example.com Lorem Ipsum']\"\n" +
     "                           type=\"text\">\n" +
     "                </td>\n" +
     "                <td>\n" +

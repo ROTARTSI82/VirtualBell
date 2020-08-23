@@ -96,9 +96,9 @@ let getLinkHTML = function (periodName) {
 
         linkList.forEach(function (element) {
             if (/[A-z]+:\/\/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/g.test(element)) {
-                finalHTML += "<a target=\"_blank\" href=\"" + element + "\">" + element + "</a>, ";
+                finalHTML += "<a target=\"_blank\" href=\"" + element + "\">" + element + "</a> ";
             } else {
-                finalHTML += element + ', ';
+                finalHTML += element + ' ';
             }
         });
 
@@ -114,9 +114,9 @@ let getLinkHTML = function (periodName) {
 
         if (periodName === "Clubs") {
             if (now.getDay() === 2) {
-                return "Check <a href='https://schoology.harker.org'>schoology</a> for Tuesday Club Offerings."
+                return "Check <a href='https://schoology.harker.org' target='_blank'>schoology</a> for Tuesday Club Offerings."
             } else if (now.getDay() === 4) {
-                return "Check <a href='https://schoology.harker.org'>schoology</a> for Thursday Club Offerings."
+                return "Check <a href='https://schoology.harker.org' target='_blank'>schoology</a> for Thursday Club Offerings."
             }
         }
 
