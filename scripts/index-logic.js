@@ -7,6 +7,26 @@ let linkDisp = document.getElementById("link-disp");
 let endDisp = document.getElementById("end-disp");
 let noteDisp = document.getElementById("note-disp");
 
+let now = new Date();
+let doTroll = now.getDate() === 1 && now.getMonth() === 3;
+doTroll |= true;
+let origColors = new Map();
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function randomColor() {
+    let chars = "0123456789abcdef";
+    let ret = "#";
+    for (let i = 0; i < 6; i++) {
+        ret += chars.charAt(getRandomInt(0, 15));
+    }
+    return ret;
+}
+
 document.getElementById("noscript").hidden = true;
 
 let offDuty = "Free Time";
@@ -31,7 +51,13 @@ if (localStorage.getItem("bellSound") !== null) {
 } else {  // Set default bell sound
     bellSound = new Audio("bellSounds/bell2.wav");
 }
+
+let troll = null;
+
+if (doTroll) {
+    bellSound = new Audio("bellSounds/bellend.mp3");
 // bellSound.play();
+}
 
 let setTarget = function (date) {
     now = new Date();
@@ -39,7 +65,6 @@ let setTarget = function (date) {
     endDisp.textContent = date.toLocaleTimeString();
 };
 
-let now = new Date();
 let schedule = [];
 
 loadSchedule();
@@ -70,6 +95,41 @@ let updateSchedule = function () {
 
             if (prevTarget !== element[0]) {
                 bellSound.play();
+
+                if (troll === null && doTroll) {
+
+                    let all = document.getElementsByTagName("*");
+                    for (let i=0, max=all.length; i < max; i++) {
+                        origColors.set(all[i], {fg: all[i].style.color, bg: all[i].style.backgroundColor});
+                    }
+
+                    troll = setInterval(function () {
+                        let all = document.getElementsByTagName("*");
+
+                        for (let i=0, max=all.length; i < max; i++) {
+                            all[i].style.color = randomColor();
+                            all[i].style.backgroundColor = randomColor();
+                        }
+                    }, 0);
+
+                    setTimeout(function() {
+                        clearInterval(troll);
+                        troll = null;
+
+                        bellSound.pause();
+                        bellSound.load();
+
+                        let all = document.getElementsByTagName("*");
+
+                        for (let i=0, max=all.length; i < max; i++) {
+                            if (origColors.has(all[i])) {
+                                all[i].style.color = origColors.get(all[i]).fg;
+                                all[i].style.backgroundColor = origColors.get(all[i]).bg;
+                            }
+                        }
+
+                    }, 5000)
+                }
             }
             prevTarget = element[0];
         } else {
