@@ -153,6 +153,29 @@
     </div>
 </div>
 
+<div class="modal fade" id="resetColours" tabindex="-1" role="dialog" aria-labelledby="resetAllLab"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="resetColoursLab">Are you sure?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to reset your custom colours to default?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"
+                        onclick="resetColours();">Yes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="pad center">
     <div class="pad center dark-theme bg-dark">
         <h1>Harker MS Virtual Bell - Settings</h1>
@@ -217,6 +240,14 @@
             <div class="col-sm">
                 <button class="btn btn-primary" type="button" onclick="showExport();">Export Settings</button>
             </div>
+        </div>
+        <hr>
+        <div class="form-group" id="colour-select">
+            <h5><label for="background-colour">Background Colour: </label>
+                <input type="color" id="background-colour" name="background-colour" value="#006400"></h5>
+
+            <button class="btn btn-primary" type="button" onclick="saveColours();">Save Custom Colours</button>
+            <button class="btn btn-danger" type="button" onclick="$('#resetColours').modal('show');">Reset Colours to Default</button>
         </div>
         <hr>
         <h5><a href="index.html">← Back to the Bell</a></h5>

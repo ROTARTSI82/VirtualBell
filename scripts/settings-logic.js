@@ -4,6 +4,7 @@ let saveSched = document.getElementById("save-sched");
 let bellSelect = document.getElementById("sound-select");
 let saveBell = document.getElementById("save-bell");
 let tbody = document.getElementById("tcust-names-bod");
+let colourSelect = document.getElementById("colour-select");
 
 let firstOption = "<option value=\"\" disabled selected>Select an Event</option>";
 let rowMap = new Map();
@@ -148,6 +149,16 @@ let addCustRow = function() {
 
     tbody.appendChild(nr);
     return nr;
+}
+
+let saveColours = function() {
+    localStorage.setItem("backgroundColour", colourSelect.querySelector("#background-colour").value);
+    document.body.style.backgroundColor = colourSelect.querySelector("#background-colour").value;
+
+}
+
+let resetColours = function () {
+
 }
 
 let showExport = function() {
