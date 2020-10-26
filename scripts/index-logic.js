@@ -9,7 +9,7 @@ let noteDisp = document.getElementById("note-disp");
 
 let now = new Date();
 let doTroll = now.getDate() === 1 && now.getMonth() === 3;
-doTroll |= true;
+// doTroll |= true;
 let origColors = new Map();
 
 function getRandomInt(min, max) {
