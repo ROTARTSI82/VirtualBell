@@ -7,9 +7,27 @@ let linkDisp = document.getElementById("link-disp");
 let endDisp = document.getElementById("end-disp");
 let noteDisp = document.getElementById("note-disp");
 
+
+function getDayProperties(n) {
+    console.log(`${n.getDate()} - ${n.getMonth()}`)
+
+    if (n.getDate() === 1 && n.getMonth() === 3) {
+        return {delay: 0, song: "bellSounds/bellrick.wav", len: 5000};
+    }
+
+    if (n.getDate() >= 30 && n.getMonth() === 9) {
+        return {delay: 0, song: "bellSounds/bellooeee.mp3", len: 7000};
+    }
+
+    if ((n.getDate() === 25 && n.getMonth() === 11) || (n.getDate() === 1 && n.getMonth() === 0)) {
+        return {delay: 250, song: "bellSounds/belldad.mp3", len: 11000}
+    }
+
+    return null;
+}
+
 let now = new Date();
-let doTroll = now.getDate() === 1 && now.getMonth() === 3;
-// doTroll |= true;
+let doTroll = getDayProperties(now) !== null;
 let origColors = new Map();
 
 function getRandomInt(min, max) {
@@ -55,7 +73,7 @@ if (localStorage.getItem("bellSound") !== null) {
 let troll = null;
 
 if (doTroll) {
-    bellSound = new Audio("bellSounds/bellend.mp3");
+    bellSound = new Audio(getDayProperties(now).song);
 // bellSound.play();
 }
 
@@ -110,7 +128,7 @@ let updateSchedule = function () {
                             all[i].style.color = randomColor();
                             all[i].style.backgroundColor = randomColor();
                         }
-                    }, 0);
+                    }, getDayProperties(new Date()).delay);
 
                     setTimeout(function() {
                         clearInterval(troll);
@@ -128,7 +146,7 @@ let updateSchedule = function () {
                             }
                         }
 
-                    }, 5000)
+                    }, getDayProperties(new Date()).len);
                 }
             }
             prevTarget = element[0];
