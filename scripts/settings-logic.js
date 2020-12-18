@@ -176,7 +176,7 @@ let showExport = function() {
 }
 
 let importSettings = function() {
-    localStorage.clear();
+    // localStorage.clear();
     let impStr = document.getElementById('importIn').value;
     for (let i of impStr.split("~[SK]~")) {
         let args = i.split("~[SV]~");
