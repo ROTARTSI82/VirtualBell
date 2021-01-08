@@ -1,5 +1,3 @@
-$('#exampleModalCenter').modal('show');
-
 let periodDisp = document.getElementById("period-disp");
 let timeDisp = document.getElementById("time-disp");
 let nextDisp = document.getElementById("next-disp");
