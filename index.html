@@ -1,5 +1,158 @@
-<script>
-    window.open("popup.html", "", "width=800,height=700");
-    document.write("Opened in popup.")
-    window.close()
-</script>
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
+
+    <link href="style.css" rel="stylesheet">
+
+    <link href="apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57">
+    <link href="apple-icon-60x60.png" rel="apple-touch-icon" sizes="60x60">
+    <link href="apple-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
+    <link href="apple-icon-76x76.png" rel="apple-touch-icon" sizes="76x76">
+    <link href="apple-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
+    <link href="apple-icon-120x120.png" rel="apple-touch-icon" sizes="120x120">
+    <link href="apple-icon-144x144.png" rel="apple-touch-icon" sizes="144x144">
+    <link href="apple-icon-152x152.png" rel="apple-touch-icon" sizes="152x152">
+    <link href="apple-icon-180x180.png" rel="apple-touch-icon" sizes="180x180">
+    <link href="android-icon-192x192.png" rel="icon" sizes="192x192" type="image/png">
+    <link href="favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+    <link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
+    <link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+    <link href="manifest.json" rel="manifest">
+    <meta content="#ffffff" name="msapplication-TileColor">
+    <meta content="ms-icon-144x144.png" name="msapplication-TileImage">
+    <meta content="#ffffff" name="theme-color">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Harker MS Virtual Bell" />
+    <meta property="og:site_name" content="Harker MS Virtual Bell" />
+    <meta property="og:description" content="Virtual Bell for the Harker Middle School. Made by Grant Yang (25granty@students.harker.org)" />
+    <meta property="og:url" content="https://rotartsi82.github.io/VirtualBell/index.html" />
+    <meta property="og:image" content="https://rotartsi82.github.io/VirtualBell/favicon-96x96.png" />
+
+    <title>Harker MS Virtual Bell</title>
+</head>
+<body>
+<!--<div class="alert alert-danger fixed-top mt-2 ml-4 mr-4" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h3>WARNING: This site is no longer maintained!</h3>
+    <p class="lead">
+        I will no longer be maintaining this site! This site was last updated on Aug 24, 2020 (First day of school!).
+        Please go use <a href="https://utility.togatech.org/harkermsbell/">Kabir's Bell</a> instead.
+    </p>
+    <hr>
+    <span class="lead">
+    Demo video: <a target="_blank" href="https://www.youtube.com/watch?v=ED0roOU1rQg">https://www.youtube.com/watch?v=ED0roOU1rQg</a>
+    </span>
+</div> -->
+
+<div class="pad center">
+    <div class="pad center bg-dark dark-theme">
+        <div class="alert alert-danger" id="noscript" role="alert">
+            <h4 class="alert-heading">
+                <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                ERROR: If you are seeing this, then you probably have JavaScript disabled.
+                You MUST enable
+                JavaScript for this website to work. Check that your adblocker isn't blocking javascript (we don't
+                have any ads anyways, so it's safe to disable it for this site.) Otherwise, try reloading.
+            </h4>
+        </div>
+
+        <h1>Harker Middle School Virtual Bell <span class="badge badge-secondary">v4.1</span></h1>
+        <h4>By Grant Yang <a href="mailto:25granty@students.harker.org"
+                             target="_blank"><25granty@students.harker.org></a></h4>
+        <h5 style="color: yellow">Turn on sound and allow autoplay to hear the bells! If you don't want to hear them,
+            right-click on this tab to mute it.</h5>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-sm">
+                <h5><a href="settings.html">Settings</a></h5>
+            </div>
+
+            <div class="col-sm">
+                <h5><a href="customize-schedule.html">Create your own Schedule</a></h5>
+            </div>
+
+            <div class="col-sm">
+                <h5><a href="links.html" target="_blank">Zoom/Flipgrid Links</a></h5>
+            </div>
+        </div>
+
+        <hr>
+        <h3><span class="disp" id="datetime-disp">ERROR</span></h3>
+        <h2><span class="disp" id="note-disp" style="color: yellow">ERROR</span></h2>
+
+        <hr>
+        <h1><span class="disp" id="period-disp">ERROR</span> ends at <span class="disp" id="end-disp">ERROR</span></h1>
+        <h3><span class="disp" id="link-disp">ERROR</span></h3>
+        <h1><span class="disp" id="time-disp">ERROR</span> until <span class="disp" id="next-disp">ERROR</span></h1>
+
+        <hr>
+        <table class="table table-striped table-dark">
+            <thead>
+            <tr>
+                <th scope="col">Event</th>
+                <th scope="col">Links</th>
+                <th scope="col">Start</th>
+                <th scope="col">End</th>
+                <th scope="col">Duration</th>
+            </tr>
+            </thead>
+            <tbody id="sched-body">
+            <tr style="background: darkgreen">
+                <th scope="row">ERROR</th>
+                <td>ERROR</td>
+                <td>ERROR</td>
+                <td>ERROR</td>
+                <td>ERROR</td>
+            </tr>
+            <tr>
+                <th scope="row">ERROR</th>
+                <td>ERROR</td>
+                <td>ERROR</td>
+                <td>ERROR</td>
+                <td>ERROR</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <hr>
+        <div class="row">
+            <div class="col-sm">
+                <h5><a href="https://www.github.com/ROTARTSI82/VirtualBell" target="_blank">See the code on GitHub</a>
+                </h5>
+            </div>
+            <div class="col-sm">
+                <h5><a href="https://www.github.com/ROTARTSI82/VirtualBell/issues" target="_blank">Report an Issue</a>
+                </h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script crossorigin="anonymous" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script crossorigin="anonymous" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script crossorigin="anonymous" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<script src="scripts/default-schedules.js"></script>
+<script src="scripts/schedules.js"></script>
+<script src="scripts/index-logic.js"></script>
+</body>
+</html>
